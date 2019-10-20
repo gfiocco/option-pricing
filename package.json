@@ -1,0 +1,11 @@
+{
+  "name": "option-pricing",
+  "version": "1.0.0",
+  "description": "A library in different programming languages of the option pricing formulas used by global CCPs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Giuseppe Fiocco",
+  "license": "ISC"
+}
