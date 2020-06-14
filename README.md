@@ -104,7 +104,7 @@ Greeks:
 
 ### Bachelier Futures Spread (BFS)
 
-The Bachelier Future Spread model is a variant of the 1900 Bachelier model. The BFS model differs from the traditional Bachelier model as it takes into account the time value of money and the null initial investment in future contracts. In the BFS model, the dynamics of the underlying is an arithmetic Brownian motion, and because of that, this model is preferred for the pricing of spread option on forwards and futures where the underlying price can be negative (e.g. an option on a calendar spread future).
+In the BFS model, the dynamics of the underlying is an arithmetic Brownian motion, and because of that, this model is preferred for the pricing of spread options on forwards and futures where the underlying price can be negative (e.g. an option on a calendar spread future).
 
 This model yields very good approximation results with respect to the B76 for options that are close at-the-money and with a short time to maturity. Generally, transaction volume in options contracts is concentrated in short-maturity at-the-money contracts, which is why the BFS formula is as a standard among CCPs.
 
