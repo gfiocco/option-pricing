@@ -1,4 +1,4 @@
-# CCPs Quantitative Option Pricing
+        # CCPs Quantitative Option Pricing
 
 The scope of this repository is to provide a library in different programming languages of the option pricing formulas currently being used by most of the global derivatives central counterparty clearing houses (CCPs).
 
@@ -34,6 +34,8 @@ For this reason, this repository omits other option pricing techniques that woul
     sqrt() = square root function;
     Pi     = Archimedes' constant (~3.14159);
 
+**NOTE** : call and put options share the same gamma and vega.
+
 ###  Black-Scholes-Merton (BSM)
 
 The Merton's extension of the 1973 Black-Sholes formula is commonly used for the pricing of dividend-paying equity European-options. Note that this formula is not appropriate for any option on forwards and futures as this model accounts for the initial investment value of the underlying.
@@ -52,9 +54,7 @@ Greeks:
 
     bsmPutDelta(X, q, t, K, r, s) = exp(-q*t) * (N(d1)-1);
 
-    bsmCallGamma(X, q, t, K, r, s) = [(exp(-q*t)/(X*s*sqrt(t)))] * [(1/sqrt(2*Pi))] * [exp(-d1^2/2)];
-
-    bsmPutGamma(X, q, t, K, r, s) = bsmCallGamma(X, q, t, K, r, s);
+    bsmGamma(X, q, t, K, r, s) = [(exp(-q*t)/(X*s*sqrt(t)))] * [(1/sqrt(2*Pi))] * [exp(-d1^2/2)];
 
     bsmCallRho(X, q, t, K, r, s) = (1/100) * (K*t*exp(-r*t)) * N(d2);
 
@@ -64,9 +64,7 @@ Greeks:
 
     bsmPutTheta(X, q, t, K, r, s)  = (1/360) * { -{[(X*s*exp(-q*t))/(2*sqrt(t))]*[1/sqrt(2*Pi)]*exp(-(d1^2)/2)} +[r*K*exp(-r*t)*N(-d2)] -[q*X*exp(-q*t)*N(-d1)] };
 
-    bsmCallVega(X, q, t, K, r, s) = (1/100) * (X * exp(-q*t) * sqrt(t)) * (1/sqrt(2*Pi)) * exp(-d1^2/2);
-
-    bsmPutVega(X, q, t, K, r, s) = bsmCallVega(X, q, t, K, r, s);
+    bsmVega(X, q, t, K, r, s) = (1/100) * (X * exp(-q*t) * sqrt(t)) * (1/sqrt(2*Pi)) * exp(-d1^2/2);
 
 ### Black 1976 (B76)
 
@@ -86,9 +84,7 @@ Greeks:
 
     b76PutDelta(X, t, K, r, s) = exp(-r*t) * (N(d1)-1);
 
-    b76CallGamma(X, t, K, r, s) = [(exp(-r*t)/(X*s*sqrt(t)))] * [(1/sqrt(2*Pi))] * [exp(-d1^2/2)];
-
-    b76PutGamma(X, t, K, r, s) = b76CallGamma(X, t, K, r, s);
+    b76Gamma(X, t, K, r, s) = [(exp(-r*t)/(X*s*sqrt(t)))] * [(1/sqrt(2*Pi))] * [exp(-d1^2/2)];
 
     b76CallRho(X, t, K, r, s) = (1/100) * (K*t*exp(-r*t)) * N(d2);
 
@@ -98,9 +94,7 @@ Greeks:
 
     b76PutTheta(X, t, K, r, s)  = (1/360) * { -{[(X*s*exp(-r*t))/(2*sqrt(t))]*[1/sqrt(2*Pi)]*exp(-(d1^2)/2)} +[r*K*exp(-r*t)*N(-d2)] -[r*X*exp(-r*t)*N(-d1)] };
 
-    b76CallVega(X, t, K, r, s) = (1/100) * (X * exp(-r*t) * sqrt(t)) * (1/sqrt(2*Pi)) * exp(-d1^2/2);
-
-    b76PutVega(X, t, K, r, s) = b76CallVega(X, t, K, r, s);
+    b76Vega(X, t, K, r, s) = (1/100) * (X * exp(-r*t) * sqrt(t)) * (1/sqrt(2*Pi)) * exp(-d1^2/2);
 
 ### Bachelier Futures Spread (BFS)
 
@@ -122,9 +116,7 @@ Greeks:
 
     bfsPutDelta(X, t, K, r, s) = -exp(-r*t) * N(-d);
 
-    bfsCallGamma(X, t, K, r, s) = exp(-r*t) * n(d) / (s * sqrt(t));
-
-    bfsPutGamma(X, t, K, r, s) = bfsCallGamma(X, t, K, r, s);
+    bfsGamma(X, t, K, r, s) = exp(-r*t) * n(d) / (s * sqrt(t));
 
     bfsCallRho(X, t, K, r, s) = -t * exp(-r*t) * [N(d)*(X - K) + n(d)*(s * sqrt(t))];
 
@@ -134,10 +126,7 @@ Greeks:
 
     bfsPutTheta(X, t, K, r, s) = -r * exp(-r*t) * [N(-d)*(K - X) + n(d)*(s * sqrt(t))] +  (exp(-r*t) * s * n(d)) / (2 * sqrt(t)) - 2 * r * exp(-r*t) * (X - K);
 
-    bfsCallVega(X, t, K, r, s) = exp(-r*t) * sqrt(t) * n(d);
-
-    bfsPutVega(X, t, K, r, s) = bfsPutVega(X, t, K, r, s);
-
+    bfsVega(X, t, K, r, s) = exp(-r*t) * sqrt(t) * n(d);
 
 ### Extracting the Implied Volatility with the Bisection Method
 
